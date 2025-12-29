@@ -13,10 +13,8 @@ import (
 
 func main() {
 
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatal("Error loading .env file")
-	}
+	_ = godotenv.Load()
+
 	fmt.Println("RedisURL:", os.Getenv("REDIS_URL"))
 	if err := store.InitRedis(); err != nil {
 		log.Fatalf("redis connection failed: %v", err)
