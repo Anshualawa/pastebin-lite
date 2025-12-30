@@ -31,6 +31,75 @@ serverless or distributed environments
 
 ---
 
+## Routes
+### Health Check
+
+  https://pastebin-lite-b5yb.onrender.com/api/healthz
+
+Response
+```json
+{
+  "ok" : true
+}
+// if not ok
+{
+  "ok": false
+}
+```
+### Create a paste
+```bash
+curl -X POST  https://pastebin-lite-b5yb.onrender.com/api/pastes \
+-d '{ "content":"Hi I am Software Developer I'm creating pastes", "ttl_seconds":60, "max_views":5 }'
+```
+Response 200
+```json
+{
+  "id" : "string",
+  "url" : "https://pastebin-lite-b5yb.onrender.com/p/01cde02e-a11d-46b7-845c-5f5d3621f43a"
+}
+```
+Response 400
+```json
+{
+  "error": "content is required"
+}
+```
+
+### Fetch a paste  (API)
+GET  https://pastebin-lite-b5yb.onrender.com/api/pastes/{id}
+```base
+cur -X GET  https://pastebin-lite-b5yb.onrender.com/api/pastes/fe84742e-60b6-424b-87cd-2f46f543360a 
+```
+Success response 200
+```json
+{
+  "id": "fe84742e-60b6-424b-87cd-2f46f543360a",
+  "content": "Hi I am Software Developer I'm creating pastes",
+  "created_at": 1767067107080,
+  "expires_at": 1767067167080,
+  "max_views": 5,
+  "views": 0
+}
+```
+
+HTTP 404
+```json
+{
+  "error": "paste not found"
+}
+```
+
+### View a paste (HTML)
+GET https://pastebin-lite-b5yb.onrender.com/p/{id}
+
+https://pastebin-lite-b5yb.onrender.com/p/01cde02e-a11d-46b7-845c-5f5d3621f43a
+
+Response 200
+<pre>I am ready to test create a paste</pre>
+
+Response 404
+<pre>page not found</pre>
+
 ## Run Locally
 
 ### Requirements
